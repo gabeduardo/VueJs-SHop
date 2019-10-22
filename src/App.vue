@@ -1,20 +1,41 @@
 <template>
   <div id="app">
     <h1>My Shop</h1>
-    <p class="animated fadeInRight">Vue shop test of animation</p>
     <font-awesome-icon icon="shopping-cart"></font-awesome-icon>
-    <price value="4.52"></price>
+    <price-slider :sliderStatus="sliderStatus" :maximum.sync="maximum"></price-slider>
+    <product-list :maximum="maximum" :products="products" @add="addItem"></product-list>
   </div>
 </template>
 
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import Price from "./components/Price.vue";
+
+import ProductList from "./components/ProductList.vue";
+import PriceSlider from "./components/PriceSlider.vue";
+
 export default {
   name: "app",
+  data: function() {
+    return {
+      maximum: 99,
+      products: null,
+      sliderStatus: true
+    };
+  },
+
   components: {
     FontAwesomeIcon,
-    Price
+
+    ProductList,
+    PriceSlider
+  },
+
+  mounted: function() {
+    fetch("http://localhost:3000/products")
+      .then(response => response.json())
+      .then(data => {
+        this.products = data;
+      });
   }
 };
 </script>

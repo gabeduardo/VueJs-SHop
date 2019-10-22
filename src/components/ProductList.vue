@@ -12,7 +12,6 @@
       class="row d-flex mb-3 align-items-center"
       v-for="(item, index) in products"
       :key="item.id"
-      v-if="item.price<=Number(maximum)"
       :data-index="index"
     >
       <div class="col-1 m-auto">
@@ -39,7 +38,7 @@
 import Price from "./Price.vue";
 export default {
   name: "product-list",
-  components: "Price",
+  components: { Price },
   props: ["products", "maximum"],
   methods: {
     beforeEnter: function(el) {
