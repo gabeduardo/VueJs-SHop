@@ -17,7 +17,7 @@
       v-if="item.price <= Number(maximum)"
     >
       <div class="col-1 m-auto">
-        <button class="btn btn-info" @click="$emit('add', item)">+</button>
+        <button class="btn btn-info" @click="$parent.$emit('add', item)">+</button>
       </div>
 
       <div class="col-sm-4">
