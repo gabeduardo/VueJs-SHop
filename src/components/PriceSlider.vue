@@ -6,7 +6,7 @@
   >
     <div v-if="sliderStatus">
       <div class="align-items-center" :class="sliderState">
-        <label for="formMax">max</label>
+        <label for="formMax" class="font-weight-bol mr-2">max</label>
         <input
           type="text"
           id="formMax"
