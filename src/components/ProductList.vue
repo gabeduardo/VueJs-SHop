@@ -8,11 +8,13 @@
     @enter="enter"
     @leave="leave"
   >
+    <!-- eslint-disable -->
     <div
       class="row d-flex mb-3 align-items-center"
       v-for="(item, index) in products"
       :key="item.id"
       :data-index="index"
+      v-if="item.price <= Number(maximum)"
     >
       <div class="col-1 m-auto">
         <button class="btn btn-info" @click="$emit('add', item)">+</button>
@@ -40,6 +42,15 @@ export default {
   name: "product-list",
   components: { Price },
   props: ["products", "maximum"],
+  computed: {
+    filteredProducts: function() {
+      // if (this.products !== null) {
+      //   return this.products.filter(product => product.price <= this.maximum);
+      // }
+      return this.products;
+    }
+  },
+
   methods: {
     beforeEnter: function(el) {
       el.className = "d-none";
