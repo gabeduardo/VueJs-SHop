@@ -1,11 +1,11 @@
 <template>
   <nav class="navbar navbar-light fixed-top">
     <div class="navbar-text ml-auto d-flex">
-      <button class="btn btn-sm btn-outline-success" @click="sliderStatus= !sliderStatus">
+      <button class="btn btn-sm btn-outline-success" @click="$emit('toggle')">
         Range of
         <font-awesome-icon icon="dollar-sign"></font-awesome-icon>
       </button>
-      <div class="ml-2" v-if="cart.length>0">
+      <div class="ml-2">
         <button
           class="btn btn-success btn-sm dropdown-toggle"
           id="cartDropdown"
@@ -13,7 +13,8 @@
         >
           <b>Cart:</b>
           <span class="badge badge-pill badge-light">{{cartQty}}</span>
-          <i class="fas fa-shopping-cart mx-2">{{cartTotal | currency}}</i>
+          <!-- <i class="fas fa-shopping-cart mx-2">{{cartTotal}}</i> -->
+          <price :value="Number(cartTotal)"></price>
         </button>
 
         <!-- modal que muestra el carrito -->
@@ -24,9 +25,15 @@
             <div class="dropwdown-item-text text-nowrap text-right">
               <span class="badge badge-pill badge-warning align-text-top mr-1">{{item.qty}}</span>
               {{item.product.name}}
-              <b>{{(item.qty * item.product.price)| currency}}</b>
+              <b>
+                <price :value="Number(item.qty * item.product.price)"></price>
+              </b>
 
-              <a href="#" @click.stop="deleteItem(index)" class="badge badge-danger text-white">-</a>
+              <a
+                href="#"
+                @click.stop="$emit('delete', index)"
+                class="badge badge-danger text-white"
+              >-</a>
             </div>
           </div>
         </div>
@@ -37,15 +44,15 @@
   
 
 <script>
-// import Price from "./Price.vue";
+import Price from "./Price.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 export default {
   name: "navbar",
   props: ["cart", "cartQty", "cartTotal"],
   components: {
-    FontAwesomeIcon
+    FontAwesomeIcon,
 
-    // Price
+    Price
   }
 };
 </script>
