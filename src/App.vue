@@ -1,24 +1,20 @@
 <template>
-  <div id="app">
-    <h1>My Shop</h1>
-    <navbar
+  <div id="app" class="container mt-5">
+    <router-view
       :cart="cart"
       :cartQty="cartQty"
       :cartTotal="cartTotal"
-      @toggle="toggleSliderStatus"
+      :sliderStatus="sliderStatus"
+      :maximum.sync="maximum"
+      :products="products"
+      @add="addItem"
       @delete="deleteItem"
-    ></navbar>
-
-    <price-slider :sliderStatus="sliderStatus" :maximum.sync="maximum"></price-slider>
-    <product-list :maximum="maximum" :products="products" @add="addItem"></product-list>
+      @toggle="toggleSliderStatus"
+    ></router-view>
   </div>
 </template>
 
 <script>
-import ProductList from "./components/ProductList.vue";
-import Navbar from "./components/Navbar.vue";
-import PriceSlider from "./components/PriceSlider.vue";
-
 export default {
   name: "app",
   data: function() {
@@ -29,6 +25,7 @@ export default {
       cart: []
     };
   },
+
   methods: {
     toggleSliderStatus: function() {
       this.sliderStatus = !this.sliderStatus;
@@ -59,11 +56,6 @@ export default {
         this.cart.splice(id, 1);
       }
     }
-  },
-  components: {
-    ProductList,
-    PriceSlider,
-    Navbar
   },
 
   mounted: function() {
