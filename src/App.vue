@@ -1,22 +1,20 @@
 <template>
   <div id="app" class="container mt-5">
-    <products
+    <router-view
       :cart="cart"
       :cartQty="cartQty"
       :cartTotal="cartTotal"
-      @toggle="toggleSliderStatus"
-      @delete="deleteItem"
       :sliderStatus="sliderStatus"
       :maximum.sync="maximum"
       :products="products"
       @add="addItem"
-    ></products>
+      @delete="deleteItem"
+      @toggle="toggleSliderStatus"
+    ></router-view>
   </div>
 </template>
 
 <script>
-import Products from "./components/Products.vue";
-
 export default {
   name: "app",
   data: function() {
@@ -58,9 +56,6 @@ export default {
         this.cart.splice(id, 1);
       }
     }
-  },
-  components: {
-    Products
   },
 
   mounted: function() {
